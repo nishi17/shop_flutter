@@ -3,6 +3,7 @@ import 'package:flutter_complete_guide/provider/cart.dart';
 import 'package:flutter_complete_guide/provider/product.dart';
 import 'package:flutter_complete_guide/provider/productss.dart';
 import 'package:flutter_complete_guide/screens/cart_screen.dart';
+import 'package:flutter_complete_guide/widgets/app_drawer.dart';
 import 'package:flutter_complete_guide/widgets/badge.dart';
 import 'package:provider/provider.dart';
 
@@ -61,6 +62,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           )
         ],
       ),
+      drawer: AppDrawer(),
       body: ProductsGrid(isShowFavOnly),
     );
   }

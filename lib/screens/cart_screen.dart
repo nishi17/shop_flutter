@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/provider/cart.dart';
+import 'package:flutter_complete_guide/provider/orders.dart';
+import 'package:flutter_complete_guide/widgets/cart_item.dart' as ci;
 import 'package:provider/provider.dart';
 
-class CartScreen extends StatelessWidget {
+import '../provider/cart.dart';
 
+class CartScreen extends StatelessWidget {
   static const rountName = '/cart';
 
   @override
@@ -32,12 +34,45 @@ class CartScreen extends StatelessWidget {
                     width: 10,
                   ),
                   Chip(
-                    label: Text('\$ ${cart.totalAmount.toString()}', style: TextStyle(color: Theme.of(context).primaryTextTheme.titleLarge.color),),
+                    label: Text(
+                      '\$ ${cart.totalAmount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .titleLarge
+                              .color),
+                    ),
                     backgroundColor: Theme.of(context).primaryColor,
-                  )
-                  ,FlatButton(onPressed: (){}, child: Text('ORDER NOW', style: TextStyle(color: Theme.of(context).primaryColor),))
+                  ),
+                  FlatButton(
+                      onPressed: () {
+                        Provider.of<Orders>(context, listen: false).addOrders(
+                          cart.items.values.toList(),
+                          cart.totalAmount,
+                        );
+                        cart.clear();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'ORDER NOW',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ))
                 ],
               ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (ctx, i) => ci.CartItem(
+                  cart.items.values.toList()[i].id,
+                  cart.items.keys.toList()[i],
+                  cart.items.values.toList()[i].price,
+                  cart.items.values.toList()[i].title,
+                  cart.items.values.toList()[i].qunatity),
+              itemCount: cart.items.length,
             ),
           )
         ],

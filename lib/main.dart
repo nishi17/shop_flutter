@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/provider/cart.dart';
+import 'package:flutter_complete_guide/provider/orders.dart';
 import 'package:flutter_complete_guide/provider/productss.dart';
 import 'package:flutter_complete_guide/screens/cart_screen.dart';
+import 'package:flutter_complete_guide/screens/edit_user_product_screen.dart';
+import 'package:flutter_complete_guide/screens/orders_screen.dart';
 import 'package:flutter_complete_guide/screens/product_detail_screen.dart';
 import 'package:flutter_complete_guide/screens/products_overview_screen.dart';
+import 'package:flutter_complete_guide/screens/user_product_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -19,6 +23,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
+        ),
       ],
       child: MaterialApp(
         title: 'MyShop',
@@ -31,6 +38,9 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductDetailScreen.rountName: (ctx) => ProductDetailScreen(),
           CartScreen.rountName: (ctx) => CartScreen(),
+          OrdersScreen.rountName: (ctx) => OrdersScreen(),
+          UserProductScreen.rountName: (ctx) => UserProductScreen(),
+          EditUserProductScreen.rountName: (ctx) => EditUserProductScreen(),
         },
       ),
     );
